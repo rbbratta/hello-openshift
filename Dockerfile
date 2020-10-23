@@ -1,10 +1,8 @@
 FROM alpine:latest
 
-RUN apk update
-RUN apk add bash curl libc-utils libcurl libgcc wget nmap-ncat openssl libssl1.1 nss ca-certificates mtr
+RUN apk update && apk add --no-cache bash curl libc-utils libcurl libgcc wget nmap-ncat openssl libssl1.1 nss ca-certificates mtr grep gawk sed iputils jq socat fping iproute2
 RUN rm -rf /tmp/* || true
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
-RUN apk update && apk add iputils
 COPY bin/ws /usr/bin/ws
 COPY bin/hello-openshift /hello-openshift
 ADD ca.pem /usr/local/share/ca-certificates/test-example.pem
